@@ -22,7 +22,7 @@ class CalculadoraDeIMC : AppCompatActivity() {
             insets
         }
 
-        // Definimos todos los Botones, TextView y EditText que componen la app
+        // Definimos las constantes globales; Botones, TextView y EditText que componen la app
         val btnCalcular = findViewById<Button>(R.id.botonCalcular)
         val textoResultadoIMC = findViewById<TextView>(R.id.textViewResultadoIMC)
         val editTextMasa = findViewById<EditText>(R.id.editTextPesoEnKG)
@@ -31,53 +31,69 @@ class CalculadoraDeIMC : AppCompatActivity() {
 
         // Dotamos de funcionalidad al btn de calcular
         btnCalcular.setOnClickListener {
-            val masa = editTextMasa.text.toString().toDouble()
-            val estatura = editTextEstatura.text.toString().toDouble()
+            // No pasamos las constanctes iniciales a .toDouble() pq usaremos el método .isEmpty que valora Strings
+            val validarMasa = editTextMasa.text.toString()
+            val validarEstatura = editTextEstatura.text.toString()
 
-            // Mtd para redondear el numero Double en 2 decimales
-            val imc = calcularIMC(masa, estatura)
-            val imcFormateado = DecimalFormat("#.##").format(imc)
+            // Validamos si los campos están vacíos lanzando un mensaje si lo están
+            if (validarMasa.isEmpty() || validarEstatura.isEmpty()) {
+                Toast.makeText(
+                    this, "Por favor, introduce todos los parámetros", Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                // Si no están vacíos, los pasamos a double
+                val masa = validarMasa.toDouble()
+                val estatura = validarEstatura.toDouble()
 
-            // Imprimimos por pantalla la linea de txt mediante la TextView habilitada
-            textoResultadoIMC.text = "Tu IMC actual es de $imcFormateado"
+                // Validamos que sean valores válidos lanzando mensaje en caso contrario
+                if (masa == null || estatura == null || masa == 0.0 || estatura == 0.0) {
+                    Toast.makeText(
+                        this,
+                        "Por favor, introduce valores numéricos válidos para peso y altura",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    // Si todas las validaciones son correctas calculamos
+                    val imc = calcularIMC(masa, estatura)
 
-            // Clasificación de la OMS del estado nutricional de acuerdo con el IMC
-            when (imc) {
-                in 0.00..18.49 -> {
-                    textoRangoIMC.text = "Clasificación: Infrapeso"
-                }
+                    // Mtd para redondear el numero Double en 2 decimales
+                    val imcFormateado = DecimalFormat("#.##").format(imc)
 
-                in 18.50..24.99 -> {
-                    textoRangoIMC.text = "Clasificación: Peso normal"
-                }
+                    // Imprimimos por pantalla la linea de txt mediante la TextView habilitada
+                    textoResultadoIMC.text = "Tu IMC actual es de $imcFormateado"
 
-                in 25.00..29.99 -> {
-                    textoRangoIMC.text = "Clasificación: Sobrepeso"
-                }
+                    // Clasificación de la OMS del estado nutricional de acuerdo con el IMC
+                    when (imc) {
+                        in 0.00..18.49 -> {
+                            textoRangoIMC.text = "Clasificación: Infrapeso"
+                        }
 
-                in 30.00..34.99 -> {
-                    textoRangoIMC.text = "Clasificación: Obesidad de clase I"
-                }
+                        in 18.50..24.99 -> {
+                            textoRangoIMC.text = "Clasificación: Peso normal"
+                        }
 
-                in 35.00..39.99 -> {
-                    textoRangoIMC.text = "Clasificación: Obesidad de clase II"
-                }
+                        in 25.00..29.99 -> {
+                            textoRangoIMC.text = "Clasificación: Sobrepeso"
+                        }
 
-                else -> {
-                    textoRangoIMC.text = "Clasificación: Obesidad de clase III"
+                        in 30.00..34.99 -> {
+                            textoRangoIMC.text = "Clasificación: Obesidad de clase I"
+                        }
+
+                        in 35.00..39.99 -> {
+                            textoRangoIMC.text = "Clasificación: Obesidad de clase II"
+                        }
+
+                        else -> {
+                            textoRangoIMC.text = "Clasificación: Obesidad de clase III"
+                        }
+                    }
+                    val toast =
+                        Toast.makeText(this, "Procesado correctamente", Toast.LENGTH_SHORT).show()
                 }
             }
-            val toast = Toast.makeText(this, "Procesado correctamente", Toast.LENGTH_SHORT).show()
-//            } else if (masa == null || estatura == null) {
-//                val toast = Toast.makeText(this, "Por favor, introduzca los parámetros", Toast.LENGTH_SHORT)
-//                toast.show()
-//            } else {
-//                val toast =
-//                    Toast.makeText(this, "Por favor, introduzca los parámetros", Toast.LENGTH_SHORT)
-//                toast.show()
         }
     }
-
     // Fun para calcular el IMC
     fun calcularIMC(peso: Double, altura: Double): Double {
         val alturaAlCuadrado: Double = altura * altura
