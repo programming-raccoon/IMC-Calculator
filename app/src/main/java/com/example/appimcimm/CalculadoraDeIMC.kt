@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class CalculadoraDeIMC :  AppCompatActivity(){
+class CalculadoraDeIMC : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -30,7 +30,7 @@ class CalculadoraDeIMC :  AppCompatActivity(){
         val textoRangoIMC = findViewById<TextView>(R.id.textViewRangoIMC)
 
         // Dotamos de funcionalidad al btn de calcular
-        btnCalcular.setOnClickListener() {
+        btnCalcular.setOnClickListener {
             val masa = editTextMasa.text.toString().toDouble()
             val estatura = editTextEstatura.text.toString().toDouble()
 
@@ -38,7 +38,7 @@ class CalculadoraDeIMC :  AppCompatActivity(){
             val imc = calcularIMC(masa, estatura)
             val imcFormateado = DecimalFormat("#.##").format(imc)
 
-            // Imprimimos la linea de txt mediante la TextView habilitada
+            // Imprimimos por pantalla la linea de txt mediante la TextView habilitada
             textoResultadoIMC.text = "Tu IMC actual es de $imcFormateado"
 
             // Clasificación de la OMS del estado nutricional de acuerdo con el IMC
@@ -67,9 +67,14 @@ class CalculadoraDeIMC :  AppCompatActivity(){
                     textoRangoIMC.text = "Clasificación: Obesidad de clase III"
                 }
             }
-
-            val toast = Toast.makeText(this, "Procesado correctamente",Toast.LENGTH_SHORT)
-            toast.show()
+            val toast = Toast.makeText(this, "Procesado correctamente", Toast.LENGTH_SHORT).show()
+//            } else if (masa == null || estatura == null) {
+//                val toast = Toast.makeText(this, "Por favor, introduzca los parámetros", Toast.LENGTH_SHORT)
+//                toast.show()
+//            } else {
+//                val toast =
+//                    Toast.makeText(this, "Por favor, introduzca los parámetros", Toast.LENGTH_SHORT)
+//                toast.show()
         }
     }
 
