@@ -88,12 +88,13 @@ class CalculadoraDeIMC : AppCompatActivity() {
                             textoRangoIMC.text = "Clasificación: Obesidad de clase III"
                         }
                     }
-                    val toast =
-                        Toast.makeText(this, "Procesado correctamente", Toast.LENGTH_SHORT).show()
+
+                    Toast.makeText(this, "Procesado correctamente", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
     // Fun para calcular el IMC
     fun calcularIMC(peso: Double, altura: Double): Double {
         val alturaAlCuadrado: Double = altura * altura
