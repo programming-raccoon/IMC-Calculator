@@ -38,7 +38,7 @@ class CalculadoraDeIMC : AppCompatActivity() {
             // Validamos si los campos están vacíos lanzando un mensaje si lo están
             if (validarMasa.isEmpty() || validarEstatura.isEmpty()) {
                 Toast.makeText(
-                    this, "Por favor, introduce todos los parámetros", Toast.LENGTH_SHORT
+                    this, "Introduce todos los compos", Toast.LENGTH_SHORT
                 ).show()
             } else {
                 // Si no están vacíos, los pasamos a double
@@ -49,7 +49,7 @@ class CalculadoraDeIMC : AppCompatActivity() {
                 if (masa == null || estatura == null || masa == 0.0 || estatura == 0.0) {
                     Toast.makeText(
                         this,
-                        "Por favor, introduce valores numéricos válidos para peso y altura",
+                        "Introduce valores numéricos válidos",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
