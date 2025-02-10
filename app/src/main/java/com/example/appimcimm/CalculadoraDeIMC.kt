@@ -37,7 +37,7 @@ class CalculadoraDeIMC : AppCompatActivity() {
 
             // Validamos si los campos están vacíos lanzando un mensaje si lo están
             if (validarMasa.isEmpty() || validarEstatura.isEmpty()) {
-                Toast.makeText(this, "Introduce todos los compos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Introduce todos los campos", Toast.LENGTH_SHORT).show()
             } else {
                 // Si no están vacíos, los pasamos a double
                 val masa = validarMasa.toDouble()
